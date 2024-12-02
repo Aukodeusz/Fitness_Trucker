@@ -1,7 +1,13 @@
+package com.example.fitnesstracker
 import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fitnesstracker.R
+import com.example.fitnesstracker.Training
+import com.example.fitnesstracker.TrainingAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -20,25 +26,32 @@ class MainActivity : AppCompatActivity() {
         adapter = TrainingAdapter(trainings)
         recyclerView.adapter = adapter
 
-        findViewById<Button>(R.id.addButton).setOnClickListener { addTraining() }
-        loadTrainings()
-    }
+        val typeGroup = findViewById<RadioGroup>(R.id.typeGroup)
+        val distanceInput = findViewById<EditText>(R.id.distanceInput)
+        val durationInput = findViewById<EditText>(R.id.durationInput)
+        val caloriesInput = findViewById<EditText>(R.id.caloriesInput)
+        val intensityBar = findViewById<SeekBar>(R.id.intensityBar)
+        val addButton = findViewById<Button>(R.id.addButton)
 
-    private fun addTraining() {
-        val type = when (findViewById<RadioGroup>(R.id.typeGroup).checkedRadioButtonId) {
-            R.id.walkRadio -> "Spacer"
-            R.id.runRadio -> "Bieg"
-            R.id.strengthRadio -> "Trening siłowy"
-            else -> "Unknown"
+        addButton.setOnClickListener {
+            val type = when (typeGroup.checkedRadioButtonId) {
+                R.id.walkRadio -> "Spacer"
+                R.id.runRadio -> "Bieg"
+                R.id.strengthRadio -> "Trening siłowy"
+                else -> "Unknown"
+            }
+            val distance = distanceInput.text.toString().toDoubleOrNull() ?: 0.0
+            val duration = durationInput.text.toString().toDoubleOrNull() ?: 0.0
+            val calories = caloriesInput.text.toString().toDoubleOrNull() ?: 0.0
+            val intensity = intensityBar.progress
+
+            val training = Training(type, distance, duration, calories, intensity)
+            trainings.add(training)
+            adapter.notifyDataSetChanged()
+            saveTrainings()
         }
-        val distance = findViewById<EditText>(R.id.distanceInput).text.toString().toDoubleOrNull() ?: 0.0
-        val duration = findViewById<EditText>(R.id.durationInput).text.toString().toDoubleOrNull() ?: 0.0
-        val calories = findViewById<EditText>(R.id.caloriesInput).text.toString().toDoubleOrNull() ?: 0.0
-        val intensity = findViewById<SeekBar>(R.id.intensityBar).progress
 
-        trainings.add(Training(type, distance, duration, calories, intensity))
-        adapter.notifyDataSetChanged()
-        saveTrainings()
+        loadTrainings()
     }
 
     private fun loadTrainings() {

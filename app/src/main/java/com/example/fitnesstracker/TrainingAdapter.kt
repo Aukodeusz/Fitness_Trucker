@@ -8,7 +8,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 
 class TrainingAdapter(private val trainings: List<Training>) : RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder>() {
-    class TrainingViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    class TrainingViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val trainingType: TextView = view.findViewById(R.id.trainingType)
+        val trainingDetails: TextView = view.findViewById(R.id.trainingDetails)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_training, parent, false)
@@ -17,8 +21,8 @@ class TrainingAdapter(private val trainings: List<Training>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: TrainingViewHolder, position: Int) {
         val training = trainings[position]
-        holder.view.findViewById<TextView>(R.id.trainingType).text = training.type
-        holder.view.findViewById<TextView>(R.id.trainingDetails).text =
+        holder.trainingType.text = training.type
+        holder.trainingDetails.text =
             "Dystans: ${training.distance} km, Czas: ${training.duration} min, Kalorie: ${training.calories} kcal, Intensywność: ${training.intensity}"
 
         holder.view.setOnClickListener {
