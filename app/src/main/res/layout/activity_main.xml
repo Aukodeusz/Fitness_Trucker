@@ -1,72 +1,65 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editTextDistance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Distance (km)" />
-
-    <EditText
-        android:id="@+id/editTextDuration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDistance"
-        android:hint="Duration (min)" />
-
-    <EditText
-        android:id="@+id/editTextCalories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDuration"
-        android:hint="Calories burned" />
-
-    <SeekBar
-        android:id="@+id/seekBarIntensity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextCalories"
-        android:max="2" />
-
     <RadioGroup
-        android:id="@+id/radioGroupActivityType"
+        android:id="@+id/typeGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/seekBarIntensity">
-
+        android:orientation="horizontal">
         <RadioButton
-            android:id="@+id/radioButtonWalk"
+            android:id="@+id/walkRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Walk" />
-
+            android:text="Spacer" />
         <RadioButton
-            android:id="@+id/radioButtonRun"
+            android:id="@+id/runRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Run" />
-
+            android:text="Bieg" />
         <RadioButton
-            android:id="@+id/radioButtonStrength"
+            android:id="@+id/strengthRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Strength Training" />
+            android:text="Trening siłowy" />
     </RadioGroup>
 
-    <Button
-        android:id="@+id/buttonAddActivity"
+    <EditText
+        android:id="@+id/distanceInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radioGroupActivityType"
-        android:text="Add Activity" />
+        android:hint="Dystans (km)" />
+
+    <EditText
+        android:id="@+id/durationInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Czas trwania (min)" />
+
+    <EditText
+        android:id="@+id/caloriesInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kalorie (kcal)" />
+
+    <SeekBar
+        android:id="@+id/intensityBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dodaj trening" />
 
     <RecyclerView
-        android:id="@+id/recyclerViewActivities"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonAddActivity" />
-
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>
